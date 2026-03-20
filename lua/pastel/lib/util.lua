@@ -15,7 +15,7 @@ function M.get_highlight_files(path, opts)
 		local files = vim.fn.readdir(path)
 		for _, file in ipairs(files) do
 			local name = vim.fn.fnamemodify(file, ":r") -- remove extension
-			if not opts.exclude[group][name] then
+			if opts.exclude and not opts.exclude[group][name] then
 				highlight_files[#highlight_files + 1] = path .. "/" .. file
 			end
 		end
@@ -75,7 +75,7 @@ function M.set_palettes(name, opts)
 end
 
 function M.apply_highlight_style(key, hl, opts)
-	if type(opts.style[key]) == "table" then
+	if opts.style and type(opts.style[key]) == "table" then
 		for _, name in pairs(opts.style[key]) do
 			if vim.startswith(name, "!") then
 				hl[name:gsub("^!", "")][key] = false

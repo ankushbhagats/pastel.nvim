@@ -15,6 +15,50 @@ A modern Neovim colorscheme plugin featuring beautifully crafted pastel themes w
 
 ---
 
+### 🎨 Palettes
+
+<details>
+  <summary>pasteldark</summary>
+    
+<kbd>
+<img src="./src/pasteldark.jpg" />
+</kbd>
+</details>
+
+<details>
+  <summary>pastelrose</summary>
+    
+<kbd>
+<img src="./src/pastelrose.jpg" />
+</kbd>
+</details>
+
+<details>
+  <summary>pastelmint</summary>
+    
+<kbd>
+<img src="./src/pastelmint.jpg" />
+</kbd>
+</details>
+
+<details>
+  <summary>pastelsoft</summary>
+    
+<kbd>
+<img src="./src/pastelsoft.jpg" />
+</kbd>
+</details>
+
+<details>
+  <summary>pastelfrost</summary>
+    
+<kbd>
+<img src="./src/pastelfrost.jpg" />
+</kbd>
+</details>
+
+---
+
 ### 📦 Installation
 
 Install using your preferred plugin manager.
@@ -44,6 +88,7 @@ use {
 ```
 
 ### 🎨 Setup Colorscheme
+
 Somewhere in your config:
 
 ```lua
@@ -400,4 +445,5 @@ Feel free to open issues or submit PRs to improve themes, add integrations, or e
 ---
 
 ### 📄 License
+
 GNU General Public License v3
