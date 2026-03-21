@@ -269,7 +269,7 @@ filetypes = {
 
 "pastel.nvim" ships with built-in highlight support for a wide range of popular plugins.
 
-- Total Count: 46
+- Total Count: 45
 
 📦 UI & Navigation
 
@@ -332,7 +332,6 @@ filetypes = {
 - noice
 - nvim-notify
 - snacks
-- spotlight
 - render-markdown
 
 ⚙️ Utility & Misc

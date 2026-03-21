@@ -265,7 +265,7 @@ Available colorschemes:
 
 12. PLUGIN SUPPORT                                   *pastel-plugins*
 
-Total supported plugins: 46
+Total supported plugins: 45
 
 UI & Navigation:
     aerial
@@ -320,7 +320,6 @@ UI Enhancements:
     noice
     nvim-notify
     snacks
-    spotlight
     render-markdown
 
 Utility:
