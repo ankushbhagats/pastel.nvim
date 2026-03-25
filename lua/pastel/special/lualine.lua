@@ -3,6 +3,7 @@ local M = {}
 function M.load(name)
 	local main = require("pastel")
 	local opts = main.config
+  name = name or opts.theme
 	local c = require("pastel.lib.util").set_palettes(name, opts)
 	local inactive = { bg = c.statusline, fg = c.inactive_text, gui = "bold" }
 	local statusline = {

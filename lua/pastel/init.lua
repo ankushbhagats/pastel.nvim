@@ -7,7 +7,7 @@ M.config = {
 		dark = "pasteldark",
 		light = "pastelsoft",
 	},
-	palette = false,
+	palette = nil, -- force a specific theme variant (overrides :colorscheme and background)
 	termguicolors = true,
 	style = {
 		transparent = false,
@@ -45,7 +45,13 @@ M.settings = {
 local util = require("pastel.lib.util")
 
 function M.load(name)
-	M.config.theme = M.config.palette or name or M.config.background[vim.o.background]
+	local theme = M.config.palette
+	if not name then
+		theme = theme or M.config.background[vim.o.background]
+	else
+		theme = theme or name
+	end
+	M.config.theme = theme
 	M.config.palette = false -- set false to prevent constant theme every time changing colorscheme via cmd
 
 	if vim.g.colors_name then
@@ -55,7 +61,7 @@ function M.load(name)
 		vim.cmd.syntax("reset")
 	end
 	vim.o.termguicolors = M.config.termguicolors
-	vim.g.colors_name = M.config.theme
+	vim.g.colors_name = name or "pastel"
 
 	M.colors = util.set_palettes(M.config.theme, M.config)
 	M.highlights = util.get_highlights(M.path, M.colors, M.config)
@@ -79,19 +85,6 @@ function M.load(name)
 		util.set_highlights(ft_highlights, ftopts)
 	end)
 end
-
--- Auto switch background
-vim.api.nvim_create_autocmd("OptionSet", {
-	pattern = "background",
-	callback = function()
-		vim.schedule(function()
-			vim.cmd("colorscheme pastel")
-			pcall(function()
-				require("lualine").refresh()
-			end)
-		end)
-	end,
-})
 
 function M.setup(opts)
 	-- merge config with provided opts

@@ -17,6 +17,8 @@ A modern Neovim colorscheme plugin featuring beautifully crafted pastel themes w
 
 ### 🎨 Palettes
 
+Check all palettes on [VimColorschemes.com](https://vimcolorschemes.com/ankushbhagats/pastel.nvim)
+
 <details>
   <summary>pasteldark</summary>
     
@@ -68,17 +70,15 @@ Install using your preferred plugin manager.
 ```lua
 {
   "ankushbhagats/pastel.nvim",
-  lazy = false,
-  priority = 1000, -- load earlier
-  config = function()
-    require("pastel").setup()
-  end,
+  priority = 1000, -- load immediately at startup
+  opts = {}, -- your configuration comes here
+  config = true -- call setup function with provided opts
 }
 ```
 
 - packer.nvim
 
-```
+```lua
 use {
   "ankushbhagats/pastel.nvim",
   config = function()
@@ -87,12 +87,20 @@ use {
 }
 ```
 
-### 🎨 Setup Colorscheme
+### 🎨 Usage
 
-Somewhere in your config:
+- Apply a colorscheme
+Applies the selected colorscheme directly (no background-based switching).
 
 ```lua
-vim.cmd("colorscheme pasteldark")
+vim.cmd.colorscheme("pasteldark")
+```
+
+- Enable automatic background switching
+Dynamically selects a colorscheme based on the current 'background' (light or dark).
+
+```lua
+vim.cmd.colorscheme("pastel")
 ```
 
 ### ⚙️ Default Configuration
@@ -103,7 +111,7 @@ M.config = {
     dark = "pasteldark",
     light = "pastelsoft",
   },
-  palette = false,
+  palette = nil, -- force a specific theme variant (overrides :colorscheme)
   termguicolors = true,
   style = {
     transparent = false,
@@ -208,6 +216,7 @@ highlights = {
   global = function(hl, c)
       hl.Normal = { bg = "#333a3b", fg = "#808980" }
       hl.Comment.italic = true
+      hl.GitSignsChange.fg = c.blue
   end
 }
 ```
@@ -419,16 +428,6 @@ require("pastel").setup({
 
 ---
 
-### 🚀 Usage
-
-```
-:colorscheme pasteldark
-```
-
-Or any other pastel theme.
-
----
-
 ### 📌 Notes
 
 - "termguicolors" should be enabled for best experience
@@ -448,4 +447,5 @@ Feel free to open issues or submit PRs to improve themes, add integrations, or e
 GNU General Public License v3
 
 ### 📝 Credits
+
 Highlights adapted from AstroTheme. Thanks to the original authors.
