@@ -79,6 +79,12 @@ Enable automatic background switching
 Dynamically selects a colorscheme based on the current 'background' (light or dark).
     vim.cmd.colorscheme("pastel")
 
+Force set a colorscheme via plugin config
+    {
+      palette = "pastelsoft"
+    }
+
+
 ==============================================================================
 
 5. CONFIGURATION                                      *pastel-configuration*
@@ -90,7 +96,7 @@ Default configuration: >
         dark = "pasteldark",
         light = "pastelsoft",
       },
-      palette = nil, -- force a specific theme variant (overrides :colorscheme and background)
+      palette = nil, 
       termguicolors = true,
       style = {
         transparent = false,

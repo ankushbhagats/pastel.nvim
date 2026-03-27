@@ -13,7 +13,10 @@ local function write(path, content)
 	f:close()
 end
 
-for _, name in ipairs(palettes) do
+local count = 0
+
+for name, _ in pairs(palettes) do
+  count = count + 1
 	-- colorscheme file
 	write("colors/" .. name .. ".lua", 'require("pastel").load("' .. name .. '")\n')
 
@@ -21,4 +24,4 @@ for _, name in ipairs(palettes) do
 	write("lua/lualine/themes/" .. name .. ".lua", 'return require("pastel.special.lualine").load("' .. name .. '")\n')
 end
 
-print("Generated " .. (#palettes * 2) .. " files.")
+print("Generated " .. (count * 2) .. " files.")

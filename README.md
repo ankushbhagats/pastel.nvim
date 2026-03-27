@@ -57,7 +57,7 @@ A modern Neovim colorscheme plugin featuring beautifully crafted pastel themes w
 </kbd>
 </details>
 
-Check more on [vimcolorschemes](https://vimcolorschemes.com/ankushbhagats/pastel.nvim)
+Check more [vimcolorschemes](https://vimcolorschemes.com/ankushbhagats/pastel.nvim)
 
 ---
 
@@ -104,15 +104,23 @@ Dynamically selects a colorscheme based on the current 'background' (light or da
 vim.cmd.colorscheme("pastel")
 ```
 
+- Force set a colorscheme via plugin config
+
+```lua
+{
+  palette = "pastelsoft"
+}
+```
+
 ### ⚙️ Default Configuration
 
 ```lua
-M.config = {
+require("pastel").setup({
   background = {
     dark = "pasteldark",
     light = "pastelsoft",
   },
-  palette = nil, -- force a specific theme variant (overrides :colorscheme)
+  palette = nil, 
   termguicolors = true,
   style = {
     transparent = false,
@@ -139,7 +147,7 @@ M.config = {
     plugins = {},
   },
   filetypes = {},
-}
+})
 ```
 
 ---

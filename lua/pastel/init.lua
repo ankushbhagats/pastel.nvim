@@ -1,6 +1,6 @@
 local M = {}
 
-local priority = 1
+local applied = ""
 
 local PATH = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
 
@@ -39,36 +39,45 @@ M.config = {
 
 M.palettes = {
 	-- Dark
-	"pasteldark",
-	"pastelforest",
-	"pastelmint",
-	"pastelrose",
-	"pastelcream",
-	"pastelcool",
-	"pastelfog",
-	"pastelnight",
-	"pastelpop",
-	"pastelwarm",
+	pasteldark = "dark",
+	pastelforest = "dark",
+	pastelmint = "dark",
+	pastelrose = "dark",
+	pastelcream = "dark",
+	pastelcool = "dark",
+	pastelfog = "dark",
+	pastelnight = "dark",
+	pastelpop = "dark",
+	pastelwarm = "dark",
 
 	-- Light
-	"pastelsoft",
-	"pastelwhite",
-	"pastelsilk",
-	"pastelsnow",
-	"pastelcloud",
-	"pastelrice",
-	"pastelglow",
-	"pastelgold",
-	"pastelshell",
-	"pastelfrost",
+	pastelsoft = "light",
+	pastelwhite = "light",
+	pastelsilk = "light",
+	pastelsnow = "light",
+	pastelcloud = "light",
+	pastelrice = "light",
+	pastelglow = "light",
+	pastelgold = "light",
+	pastelshell = "light",
+	pastelfrost = "light",
 }
 
-local function set_colorscheme(name, theme)
-	name = name or "pastel"
+local function set_colorscheme(theme, auto)
+	local opts = M.config
+  local name = theme
+	theme = auto or theme
+	local background = M.palettes[theme]
 
-	if not vim.tbl_contains(M.palettes, theme) then
-		vim.notify(string.format("pastel.nvim: invalid colorscheme: %s", theme))
+	if not background then
+		vim.notify(string.format("pastel.nvim: invalid palette: %s", theme))
 		theme = "pasteldark"
+		background = "dark"
+		opts.palette = theme
+	end
+
+	if applied ~= theme then
+		vim.api.nvim_set_option_value("background", background, {})
 	end
 
 	M.config.theme = theme
@@ -87,22 +96,14 @@ local function set_colorscheme(name, theme)
 end
 
 function M.load(name)
+	-- TODO: Add cache support
 	local opts = M.config
-	local theme = opts.palette
 
-	if not theme or priority == 0 then
-		if not name then
-			theme = theme or opts.background[vim.o.background]
-		else
-			theme = name
-		end
-	else
-		priority = 0
-	end
+  local theme = opts.palette or name or "pastel"
+	local auto = theme == "pastel" and opts.background[vim.o.background]
+	theme = set_colorscheme(theme, auto)
 
 	local util = require("pastel.lib.util")
-
-	theme = set_colorscheme(name, theme)
 	util.set_highlights(PATH, opts)
 
 	-- WARN: Experimental feature.
@@ -121,6 +122,8 @@ function M.load(name)
 		ftopts.theme = theme
 		util.set_highlights(PATH, ftopts)
 	end)
+
+	applied = theme
 end
 
 function M.setup(opts)
